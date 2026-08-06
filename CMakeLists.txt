@@ -470,11 +470,13 @@ foreach(bridge_header ${bridge_headers})
 
     # can add all generated_sources, but mark unused as HEADER_FILE_ONLY
 
+    #set_property(SOURCE ${generated_sources_private} APPEND PROPERTY COMPILE_OPTIONS "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/bigobj>")
     #set_source_files_properties(${generated_sources} PROPERTIES HEADER_FILE_ONLY TRUE)
     #set_source_files_properties(${generated_sources_${SCAPIX_BRIDGE}} PROPERTIES HEADER_FILE_ONLY FALSE)
     #target_sources(${target} PRIVATE ${generated_sources_private})
     #target_sources(${target} INTERFACE ${generated_sources_interface})
 
+    set_property(SOURCE ${generated_sources_${SCAPIX_BRIDGE}_private} APPEND PROPERTY COMPILE_OPTIONS "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/bigobj>")
     target_sources(${target} PRIVATE ${generated_sources_${SCAPIX_BRIDGE}_private})
     target_sources(${target} INTERFACE ${generated_sources_${SCAPIX_BRIDGE}_interface})
     source_group(TREE ${PROJECT_ROOT}/generated PREFIX "generated" FILES ${generated_sources})
